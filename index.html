@@ -109,9 +109,8 @@
 </head>
 <body>
     <div id="nicknamePrompt" class="envelope">
-        <h2>💌 Tớ gửi cậu cái này nhé!!! 💌</h2>
-        <h2>💌 Trước hết 💌</h2>
-        <p>Hãy nhập biệt danh mà tớ đặt cho bạn vào đây nhe:</p>
+        <h2>💌 Một bức thư đặc biệt gửi đến bạn 💌</h2>
+        <p>Hãy nhập biệt danh mà tớ đặt cho bạn vào đây:</p>
         <input type="text" id="nicknameInput">
         <button onclick="checkNickname()">Mở thư</button>
     </div>
@@ -121,9 +120,9 @@
         <h1 id="message2" class="message">💖 Vậy hãy điền vào chỗ chấm sau nhé 💖</h1>
         
         <h1 id="line1" class="poem-line">🌊 Sóng bắt đầu từ gió</h1>
-        <h1 id="line2" class="poem-line">💨 Gió bắt đầu từ đâu?</h1>
+        <h1 id="line2" class="poem-line">💨 Gió bắt đầu từ đâu</h1>
         <h1 id="line3" class="poem-line">💓 Anh cũng không biết nữa</h1>
-        <h1 id="line4" class="poem-line">……… ta yêu nhau</h1>
+        <h1 id="line4" class="poem-line">……… nào ta yêu nhau</h1>
         
         <button id="bao_gio" class="button" onclick="shrinkBaoGio()">Bao giờ</button>
         <button id="bay_gio" class="button" onclick="showMessage()">Bây giờ</button>
@@ -134,10 +133,12 @@
         
         <!-- Form to collect STK and Bank Name -->
         <div class="form-inputs hidden">
-            <input type="text" id="stkInput" placeholder="hehee, có chắc là bây giờ khum">
-            <input type="text" id="bankNameInput" placeholder="vậy hãy gửi stk cho tớ để nhận lì xì nhé hihi">
+            <input type="text" id="stkInput" placeholder="Nhập số tài khoản (STK)">
+            <input type="text" id="bankNameInput" placeholder="Nhập tên ngân hàng">
         </div>
     </div>
+    
+    <img id="fireworks" class="fireworks" src="https://media.giphy.com/media/3oEjI6SIIHBdRxXI40/giphy.gif" alt="Pháo hoa">
     
     <script>
         function checkNickname() {
@@ -192,6 +193,12 @@
         }
 
         function showMessage() {
+            // Ẩn tất cả các dòng chữ hiện tại
+            let allMessages = document.querySelectorAll('.message, .poem-line');
+            allMessages.forEach(element => {
+                element.style.display = 'none';
+            });
+
             // Hiển thị câu hỏi sinh động
             let message = document.getElementById("responseMessage");
             message.innerHTML = "Ý câu là 'Bây giờ ta yêu nhau????'";
@@ -205,13 +212,13 @@
         function showCorrectAnswer() {
             // Hiển thị thông báo và yêu cầu nhập thông tin
             let message = document.getElementById("responseMessage");
-            message.innerHTML = "Tớ biết cậu sẽ chọn vậy mà!<br>Đủ điều kiện nhận lì xì nhé!<br>Để lại đây STK và ngân hàng nhé hihi<br>Tớ đã chụp ảnh màn hình lại rồi.";
-            setTimeout(() => {
-               /* // Hiển thị form nhập STK và Ngân hàng
+            message.innerHTML = "Tớ biết bạn sẽ chọn vậy mà!<br>Nhắn stk qua tớ dể nhận lì xì đầu năm nhe hihi.";
+          /*  setTimeout(() => {
+                // Hiển thị form nhập STK và Ngân hàng
                 let formInputs = document.querySelector(".form-inputs");
                 formInputs.classList.remove("hidden");
-            }, 1000);
-        }*/
+            }, 1000);*/
+        }
 
         document.getElementById("bay_gio").addEventListener("click", showCorrectAnswer);
     </script>

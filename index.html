@@ -21,7 +21,7 @@
             margin: 20px;
             color: #ff4081;
             opacity: 0;
-            transition: opacity 1s ease-in-out;
+            transition: opacity 1s ease-in-out, transform 1s ease-in-out;
         }
         .button {
             font-size: 18px;
@@ -31,6 +31,8 @@
             border-radius: 10px;
             transition: all 0.3s;
             border: none;
+            background-color: #ff4081;
+            color: white;
         }
         #bao_gio, #bay_gio {
             display: none;
@@ -50,6 +52,7 @@
             transform: translate(-50%, -50%);
             display: none;
             width: 150px;
+            z-index: 1000;
         }
         .envelope {
             width: 80%;
@@ -84,6 +87,24 @@
             cursor: pointer;
             width: 100%;
         }
+        .response-message {
+            font-size: 28px;
+            font-weight: bold;
+            color: #ff4081;
+            margin: 20px;
+            opacity: 0;
+            transition: opacity 1s ease-in-out;
+        }
+        .form-inputs {
+            margin-top: 20px;
+        }
+        .form-inputs input {
+            width: 80%;
+            margin: 10px 0;
+        }
+        .form-inputs.hidden {
+            display: none;
+        }
     </style>
 </head>
 <body>
@@ -104,7 +125,17 @@
         <h1 id="line4" class="poem-line">……… nào ta yêu nhau</h1>
         
         <button id="bao_gio" class="button" onclick="shrinkBaoGio()">Bao giờ</button>
-        <button id="bay_gio" class="button" onclick="growBayGio()">Bây giờ</button>
+        <button id="bay_gio" class="button" onclick="showMessage()">Bây giờ</button>
+    </div>
+
+    <div id="responseContent" class="hidden">
+        <h1 id="responseMessage" class="response-message"></h1>
+        
+        <!-- Form to collect STK and Bank Name -->
+        <div class="form-inputs hidden">
+            <input type="text" id="stkInput" placeholder="Nhập số tài khoản (STK)">
+            <input type="text" id="bankNameInput" placeholder="Nhập tên ngân hàng">
+        </div>
     </div>
     
     <img id="fireworks" class="fireworks" src="https://media.giphy.com/media/3oEjI6SIIHBdRxXI40/giphy.gif" alt="Pháo hoa">
@@ -125,8 +156,13 @@
             let messages = ["message1", "message2"];
             messages.forEach((id, index) => {
                 setTimeout(() => {
-                    document.getElementById(id).style.opacity = "1";
-                    setTimeout(() => { document.getElementById(id).style.opacity = "0"; }, 2000);
+                    let element = document.getElementById(id);
+                    element.style.opacity = "1";
+                    element.style.transform = "translateY(0)";
+                    setTimeout(() => { 
+                        element.style.opacity = "0"; 
+                        element.style.transform = "translateY(50px)"; 
+                    }, 2000);
                 }, index * 3000);
             });
             setTimeout(showPoem, 7000);
@@ -136,7 +172,9 @@
             let lines = ["line1", "line2", "line3", "line4"];
             lines.forEach((id, index) => {
                 setTimeout(() => {
-                    document.getElementById(id).style.opacity = "1";
+                    let element = document.getElementById(id);
+                    element.style.opacity = "1";
+                    element.style.transform = "translateY(0)";
                 }, index * 2000);
             });
             setTimeout(() => {
@@ -149,16 +187,40 @@
             let btn = document.getElementById("bao_gio");
             btn.style.fontSize = "10px";
             btn.style.transform = "translate(-50vw, 50vh)";
+            setTimeout(() => {
+                btn.style.display = "none";
+            }, 1000);
         }
 
-        function growBayGio() {
-            let btn = document.getElementById("bay_gio");
-            btn.style.fontSize = "40px";
-            document.getElementById("fireworks").style.display = "block";
+        function showMessage() {
+            // Ẩn tất cả các dòng chữ hiện tại
+            let allMessages = document.querySelectorAll('.message, .poem-line');
+            allMessages.forEach(element => {
+                element.style.display = 'none';
+            });
+
+            // Hiển thị câu hỏi sinh động
+            let message = document.getElementById("responseMessage");
+            message.innerHTML = "Ý câu là 'Bây giờ ta yêu nhau????'";
+            document.getElementById("responseContent").classList.remove("hidden");
+
             setTimeout(() => {
-                alert("💖 Tớ biết là cậu sẽ chọn Bây giờ mà! Chúc mừng chúng ta! 💖");
-            }, 2000);
+                document.getElementById("responseMessage").style.opacity = "1";
+            }, 1000);
         }
+
+        function showCorrectAnswer() {
+            // Hiển thị thông báo và yêu cầu nhập thông tin
+            let message = document.getElementById("responseMessage");
+            message.innerHTML = "Tớ biết cậu sẽ chọn vậy mà!<br>Đủ điều kiện nhận lì xì nhé!<br>Để lại đây STK và ngân hàng nhé hihi<br>Tớ đã chụp ảnh màn hình lại rồi.";
+            setTimeout(() => {
+                // Hiển thị form nhập STK và Ngân hàng
+                let formInputs = document.querySelector(".form-inputs");
+                formInputs.classList.remove("hidden");
+            }, 1000);
+        }
+
+        document.getElementById("bay_gio").addEventListener("click", showCorrectAnswer);
     </script>
 </body>
 </html>

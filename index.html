@@ -1,0 +1,164 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Tỏ tình với Crush</title>
+    <style>
+        body {
+            text-align: center;
+            font-family: 'Arial', sans-serif;
+            margin: 0;
+            padding: 0;
+            background-color: #ffe0f0;
+            overflow: hidden;
+            position: relative;
+        }
+        .hidden { display: none; }
+        .message, .poem-line {
+            font-size: 24px;
+            font-weight: bold;
+            margin: 20px;
+            color: #ff4081;
+            opacity: 0;
+            transition: opacity 1s ease-in-out;
+        }
+        .button {
+            font-size: 18px;
+            padding: 12px 24px;
+            margin: 10px;
+            cursor: pointer;
+            border-radius: 10px;
+            transition: all 0.3s;
+            border: none;
+        }
+        #bao_gio, #bay_gio {
+            display: none;
+        }
+        #bao_gio {
+            background-color: red;
+            color: white;
+        }
+        #bay_gio {
+            background-color: green;
+            color: white;
+        }
+        .fireworks {
+            position: fixed;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            display: none;
+            width: 150px;
+        }
+        .envelope {
+            width: 80%;
+            max-width: 350px;
+            margin: auto;
+            padding: 20px;
+            background: #fff;
+            border-radius: 10px;
+            box-shadow: 0px 5px 10px rgba(0, 0, 0, 0.2);
+            position: relative;
+            top: 20vh;
+        }
+        .envelope h2 {
+            font-size: 20px;
+            margin-bottom: 10px;
+            color: #ff4081;
+        }
+        .envelope input {
+            width: 100%;
+            padding: 10px;
+            border: 1px solid #ff4081;
+            border-radius: 5px;
+            font-size: 16px;
+        }
+        .envelope button {
+            margin-top: 10px;
+            background: #ff4081;
+            color: white;
+            border: none;
+            padding: 10px 15px;
+            border-radius: 5px;
+            cursor: pointer;
+            width: 100%;
+        }
+    </style>
+</head>
+<body>
+    <div id="nicknamePrompt" class="envelope">
+        <h2>💌 Một bức thư đặc biệt gửi đến bạn 💌</h2>
+        <p>Hãy nhập biệt danh mà tớ đặt cho bạn vào đây:</p>
+        <input type="text" id="nicknameInput">
+        <button onclick="checkNickname()">Mở thư</button>
+    </div>
+    
+    <div id="mainContent" class="hidden">
+        <h1 id="message1" class="message">🎉 Bạn có muốn nhận lì xì đầu năm từ tớ khum? 🎉</h1>
+        <h1 id="message2" class="message">💖 Vậy hãy điền vào chỗ chấm sau nhé 💖</h1>
+        
+        <h1 id="line1" class="poem-line">🌊 Sóng bắt đầu từ gió</h1>
+        <h1 id="line2" class="poem-line">💨 Gió bắt đầu từ đâu</h1>
+        <h1 id="line3" class="poem-line">💓 Anh cũng không biết nữa</h1>
+        <h1 id="line4" class="poem-line">……… nào ta yêu nhau</h1>
+        
+        <button id="bao_gio" class="button" onclick="shrinkBaoGio()">Bao giờ</button>
+        <button id="bay_gio" class="button" onclick="growBayGio()">Bây giờ</button>
+    </div>
+    
+    <img id="fireworks" class="fireworks" src="https://media.giphy.com/media/3oEjI6SIIHBdRxXI40/giphy.gif" alt="Pháo hoa">
+    
+    <script>
+        function checkNickname() {
+            let input = document.getElementById("nicknameInput").value;
+            if (input.toLowerCase() === "fg") {
+                document.getElementById("nicknamePrompt").style.display = "none";
+                document.getElementById("mainContent").classList.remove("hidden");
+                showMessages();
+            } else {
+                alert("Sai biệt danh rồi! Nhập lại đi nhé 😘");
+            }
+        }
+        
+        function showMessages() {
+            let messages = ["message1", "message2"];
+            messages.forEach((id, index) => {
+                setTimeout(() => {
+                    document.getElementById(id).style.opacity = "1";
+                    setTimeout(() => { document.getElementById(id).style.opacity = "0"; }, 2000);
+                }, index * 3000);
+            });
+            setTimeout(showPoem, 7000);
+        }
+        
+        function showPoem() {
+            let lines = ["line1", "line2", "line3", "line4"];
+            lines.forEach((id, index) => {
+                setTimeout(() => {
+                    document.getElementById(id).style.opacity = "1";
+                }, index * 2000);
+            });
+            setTimeout(() => {
+                document.getElementById("bao_gio").style.display = "inline-block";
+                document.getElementById("bay_gio").style.display = "inline-block";
+            }, 10000);
+        }
+
+        function shrinkBaoGio() {
+            let btn = document.getElementById("bao_gio");
+            btn.style.fontSize = "10px";
+            btn.style.transform = "translate(-50vw, 50vh)";
+        }
+
+        function growBayGio() {
+            let btn = document.getElementById("bay_gio");
+            btn.style.fontSize = "40px";
+            document.getElementById("fireworks").style.display = "block";
+            setTimeout(() => {
+                alert("💖 Tớ biết là cậu sẽ chọn Bây giờ mà! Chúc mừng chúng ta! 💖");
+            }, 2000);
+        }
+    </script>
+</body>
+</html>

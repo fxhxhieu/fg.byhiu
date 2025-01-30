@@ -192,12 +192,6 @@
         }
 
         function showMessage() {
-            // Ẩn tất cả các dòng chữ hiện tại
-            let allMessages = document.querySelectorAll('.message, .poem-line');
-            allMessages.forEach(element => {
-                element.style.display = 'none';
-            });
-
             // Hiển thị câu hỏi sinh động
             let message = document.getElementById("responseMessage");
             message.innerHTML = "Ý câu là 'Bây giờ ta yêu nhau????'";
@@ -213,11 +207,11 @@
             let message = document.getElementById("responseMessage");
             message.innerHTML = "Tớ biết cậu sẽ chọn vậy mà!<br>Đủ điều kiện nhận lì xì nhé!<br>Để lại đây STK và ngân hàng nhé hihi<br>Tớ đã chụp ảnh màn hình lại rồi.";
             setTimeout(() => {
-                // Hiển thị form nhập STK và Ngân hàng
+               /* // Hiển thị form nhập STK và Ngân hàng
                 let formInputs = document.querySelector(".form-inputs");
                 formInputs.classList.remove("hidden");
             }, 1000);
-        }
+        }*/
 
         document.getElementById("bay_gio").addEventListener("click", showCorrectAnswer);
     </script>
